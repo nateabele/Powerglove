@@ -1,0 +1,50 @@
+<html ng-app="powerglove">
+<head>
+<title>Powerglove</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.14.0/ramda.js"></script>
+<script src="powerglove.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css" />
+<link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div class="container" ng-controller="DataController">
+    <h1>PowerGlove</h1>
+
+    <table>
+      <tr>
+        <td class="top title">pipe(</td>
+        <td class="top cmd" ng-repeat="command in commands">
+          <!-- <input type="text" ng-model="commands[$index]" /> -->
+          {{ command }}<span ng-if="!$last">,&nbsp;</span>
+        </td>
+        <td class="top title">)</td>
+      </tr>
+      <tr ng-repeat="datum in data">
+        <td>
+          <div
+            tabindex="{{ $index }}"
+            ng-click="select($index)"
+            ng-class="{ active: $index === selected }"
+          >{{ datum }}</div>
+        </td>
+        <td ng-repeat="command in commands">
+          <div class="result" ng-class="{ active: isActive($index + 1, $parent.$index) }">
+            {{ display($index + 1, $parent.$index) }}
+          </div>
+        </td>
+        <td class="result"></td>
+      </tr>
+    </table>
+
+    <input
+      type="text"
+      autofocus
+      class="entry"
+      ng-model="newCommand"
+      ng-keypress="$event.keyCode === 13 && addCommand(newCommand)"
+    />
+  </div>
+</body>
+</html>

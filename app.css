@@ -1,0 +1,35 @@
+body {
+  margin-bottom: 60px;  
+}
+html, body, div {
+  font-size: 14px !important;
+  font-family: "Source Code Pro";
+}
+input[type=text] {
+  width: 125px;
+}
+input.entry {
+  position: fixed;
+  bottom: 20px;
+  width: 75%;
+  text-align: left;
+}
+.active {
+  background: blue;
+  color: white;
+}
+div[tabindex], .result {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  text-align: center;
+  cursor: pointer;
+}
+.top {
+  padding-bottom: 10px;
+}
+.title {
+  opacity: 0.5;
+}
+.cmd {
+  max-width: 250px;
+}
