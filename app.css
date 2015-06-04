@@ -2,33 +2,59 @@ body {
   margin-bottom: 60px;  
 }
 html, body, td, div {
-  font-size: 13px !important;
+  font-size: 13px;
   font-family: "Source Code Pro";
 }
-input[type=text] {
-  width: 125px;
-}
-input.entry {
+.input {
   position: fixed;
+  left: 30px;
   bottom: 20px;
-  width: 75%;
+  width: 95%;
   text-align: left;
+}
+.input .ctrl-char {
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
+  line-height: 50px;
+  position: relative;
+  margin-bottom: -38px;
+  margin-left: -28px;
+  color: #6194EE;
+}
+.input input {
+  width: 100%;
+  outline: none;
+  border: 0;
+  border-bottom: 2px solid #3366AA;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.8);
 }
 .active {
   background: #e0e0ff;
+  border-radius: 7px;
+}
+.result .active {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.result {
+  vertical-align: top;
 }
 div[tabindex], .result {
   margin-top: 2px;
   margin-bottom: 2px;
   /*text-align: center;*/
   cursor: pointer;
-  border-radius: 7px;
 }
 .top {
   padding-bottom: 10px;
 }
 .title {
   opacity: 0.5;
+}
+.title.left {
+  text-align: right;
 }
 .cmd {
   max-width: 250px;
