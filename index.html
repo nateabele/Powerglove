@@ -1,12 +1,16 @@
 <html ng-app="powerglove">
 <head>
-<title>Powerglove</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.14.0/ramda.js"></script>
-<script src="powerglove.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css" />
-<link rel="stylesheet" href="app.css" />
+
+  <title>Powerglove</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.14.0/ramda.js"></script>
+  <script src="powerglove.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css" />
+  <link rel="stylesheet" href="app.css" />
+
 </head>
 <body>
   <div class="container" ng-controller="DataController">
@@ -21,20 +25,39 @@
         </td>
         <td class="top title">)</td>
       </tr>
-      <tr ng-repeat="datum in data">
+      <tr ng-repeat="(i, element) in input">
         <td>
           <div
             tabindex="{{ $index }}"
-            ng-click="select($index)"
+            ng-click="select(input, $index)"
             ng-class="{ active: $index === selected }"
-          >{{ datum }}</div>
-        </td>
-        <td ng-repeat="command in commands">
-          <div class="result" ng-class="{ active: isActive($index + 1, $parent.$index) }">
-            {{ display($index + 1, $parent.$index) }}
+          >
+            <span ng-if="!isObject(element)" class="value" ng-class="typeOf(element)">
+              {{ element | json }}
+            </span>
+            <div ng-if="isObject(element)">
+              <ol class="value object">
+                <li ng-repeat="(key, value) in element" ng-include="'node-list'"></li>
+              </ol>
+            </div>
           </div>
         </td>
-        <td class="result"></td>
+
+        <td ng-repeat="(j, list) in results" class="result">
+          <div ng-class="{ active: isActive(j, i) }" ng-click="select(list, i)">
+            <span ng-if="!isObject(list[i])" class="value" ng-class="typeOf(list[i])">
+              {{ list[i] | json }}
+            </span>
+            <div ng-if="isObject(list[i])">
+              <table class="value object">
+                <tr
+                  ng-repeat="(key, value) in list[i]"
+                  ng-include="'node-list'"
+                ></tr>
+              </table>
+            </div>
+          </div>
+        </td>
       </tr>
     </table>
 
@@ -45,6 +68,26 @@
       ng-model="newCommand"
       ng-keypress="$event.keyCode === 13 && addCommand(newCommand)"
     />
+
+    <script type="text/ng-template" id="node-list">
+      <span
+        class="key"
+        ng-init="state = { open: false }"
+        ng-click="state.open = !state.open; $event.stopPropagation();"
+        ng-class="{ open: state.open, closed: !state.open, object: isObject(value) }"
+      >
+        {{ key }}<span class="marker">:</span>
+      </span>
+      <span ng-if="!isObject(value)" class="value" ng-class="typeOf(value)">{{ value | json }}</span>
+      <span ng-if="isObject(value)">{
+        <span ng-if="!state.open" class="brace" ng-click="state.open = true; $event.stopPropagation();"> ... </span>
+        <ol ng-if="state.open" class="value object">
+          <li ng-repeat="(key, value) in value" ng-include="'node-list'"></li>
+        </ol>
+        <span class="brace">}</span>
+      </span>
+    </script>
+
   </div>
 </body>
 </html>

@@ -1,8 +1,8 @@
 body {
   margin-bottom: 60px;  
 }
-html, body, div {
-  font-size: 14px !important;
+html, body, td, div {
+  font-size: 13px !important;
   font-family: "Source Code Pro";
 }
 input[type=text] {
@@ -15,14 +15,14 @@ input.entry {
   text-align: left;
 }
 .active {
-  background: blue;
-  color: white;
+  background: #e0e0ff;
 }
 div[tabindex], .result {
   margin-top: 2px;
   margin-bottom: 2px;
-  text-align: center;
+  /*text-align: center;*/
   cursor: pointer;
+  border-radius: 7px;
 }
 .top {
   padding-bottom: 10px;
@@ -32,4 +32,43 @@ div[tabindex], .result {
 }
 .cmd {
   max-width: 250px;
+}
+
+.object {
+}
+.key {
+  color: purple;
+  padding: 2px 2px 2px 7px;
+  vertical-align: top;
+  font-size: 90%;
+}
+.key.object {
+  padding-left: 0;
+  margin-left: -11px;
+}
+.key.object:before {
+  color: black;
+  margin: 0 -3px 0 6px;
+}
+.key.object.closed:before {
+  content: "\25B6";
+}
+.key.object.open:before {
+  content: "\25BC";
+}
+.marker {
+  color: black;
+}
+.value {
+  list-style: none;
+  font-size: 14px;
+}
+.value.object {
+  padding: 2px 0 2px 12px;
+}
+.value.string {
+  color: #A50000;
+}
+.value.number, .value.boolean {
+  color: blue;
 }
