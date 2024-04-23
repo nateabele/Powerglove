@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("https://rawgit.com/phyllisstein/grid-on-grid/master/src/vendor/fonts/source-code-pro/SourceCodePro-Semibold.woff2") format("woff2"), url("https://rawgit.com/phyllisstein/grid-on-grid/master/src/vendor/fonts/source-code-pro/SourceCodePro-Semibold.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
 body {
   margin-bottom: 60px;  
 }
